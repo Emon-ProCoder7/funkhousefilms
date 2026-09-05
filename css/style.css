@@ -483,16 +483,18 @@ h2.section-title {
 }
 
 .header-main {
-  background-color: rgba(22, 22, 22, 0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--clr-border-soft);
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
   position: relative;
   z-index: 999;
 }
 
 .header.is-scrolled .header-main {
-  background-color: rgba(22, 22, 22, 0.98);
+  background-color: rgba(22, 22, 22, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: var(--clr-border-soft);
 }
 
 .navbar-container {
@@ -1182,49 +1184,6 @@ body.menu-open {
   opacity: 0.85;
 }
 
-.hero-scroll-indicator {
-  position: absolute;
-  bottom: 26px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  color: var(--clr-muted);
-  font-family: var(--font-body);
-  font-size: 12px;
-  letter-spacing: 2.996px;
-  text-transform: uppercase;
-}
-
-.hero-scroll-indicator .mouse {
-  width: 22px;
-  height: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 12px;
-  position: relative;
-}
-
-.hero-scroll-indicator .mouse::after {
-  content: "";
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  width: 2px;
-  height: 8px;
-  margin-left: -1px;
-  background: var(--clr-primary);
-  border-radius: 2px;
-  animation: scrollWheel 1.8s infinite var(--ease-out);
-}
-
-@keyframes scrollWheel {
-  0% { transform: translateY(0); opacity: 1; }
-  70% { transform: translateY(14px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 0; }
-}
 
 /* --------------------------------------------------------------------------
    8. BRAND STATEMENT (big headline, char animation)

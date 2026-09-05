@@ -56,8 +56,7 @@ onReady(() => {
       .fromTo('.brand-hero .hero-kicker', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 0.35)
       .fromTo('.brand-hero .hero-sub', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8 }, 0.5)
       .fromTo('.brand-hero .hero-cta-row > *', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, 0.65)
-      .fromTo('.brand-hero .hero-tags > *', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 }, 0.8)
-      .fromTo('.brand-hero .hero-scroll-indicator', { opacity: 0 }, { opacity: 1, duration: 0.8 }, 1);
+      .fromTo('.brand-hero .hero-tags > *', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 }, 0.8);
   }
 
   /* ======================================================================
@@ -66,20 +65,18 @@ onReady(() => {
   const sliderSection = $('#heroSlider');
   if (sliderSection && !reduced) {
     gsap.set(sliderSection, { opacity: 0, scale: 0.72, transformOrigin: '50% 50%', willChange: 'transform, opacity' });
-    gsap.set('#heroSlider .hero-kicker', { opacity: 0 });
-    gsap.set('#heroSlider .hero-title .line-inner', { opacity: 0, y: 0, yPercent: 0 });
 
-    gsap.timeline({
+    gsap.to(sliderSection, {
+      opacity: 1,
+      scale: 1,
+      ease: 'none',
       scrollTrigger: {
         trigger: sliderSection,
         start: 'top 92%',
         end: 'top 20%',
         scrub: 0.6
       }
-    })
-      .to(sliderSection, { opacity: 1, scale: 1, ease: 'none' }, 0)
-      .to('#heroSlider .hero-kicker, #heroSlider .hero-title .line-inner',
-        { opacity: 1, ease: 'none', stagger: 0.03 }, 0.15);
+    });
   } else if (sliderSection && reduced) {
     gsap.set(sliderSection, { opacity: 1, scale: 1 });
   }
