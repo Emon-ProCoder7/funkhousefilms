@@ -1,0 +1,12 @@
+# node_modules etc (none used, site is static)
+node_modules/
+npm-debug.log*
+
+# local tooling / temp
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db
+
+# build artifacts already committed — nothing to ignore beyond temp
