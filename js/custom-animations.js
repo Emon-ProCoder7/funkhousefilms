@@ -46,43 +46,41 @@ onReady(() => {
   /* ======================================================================
      1. HERO INTRO
      ===================================================================== */
-  const hero = $('.home-hero-wrapper');
+  const hero = $('.brand-hero');
   if (hero && !reduced) {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.fromTo('.hero-title .line-inner',
+    tl.fromTo('.brand-hero .hero-title .line-inner',
       { yPercent: 115 },
       { yPercent: 0, duration: 1.1, stagger: 0.14 }, 0.15)
-      .fromTo('.hero-kicker', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 0.35)
-      .fromTo('.hero-sub', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8 }, 0.5)
-      .fromTo('.hero-cta-row > *', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, 0.65)
-      .fromTo('.hero-tags > *', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 }, 0.8)
-      .fromTo('.hero-scroll-indicator', { opacity: 0 }, { opacity: 1, duration: 0.8 }, 1)
-      .fromTo('.home-hero-side-panel.left', { xPercent: -8, opacity: 0 },
-        { xPercent: 0, opacity: 1, duration: 1.4, ease: 'power2.out' }, 0.4)
-      .fromTo('.home-hero-side-panel.right', { xPercent: 8, opacity: 0 },
-        { xPercent: 0, opacity: 1, duration: 1.4, ease: 'power2.out' }, 0.4);
+      .fromTo('.brand-hero .hero-kicker', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 0.35)
+      .fromTo('.brand-hero .hero-sub', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8 }, 0.5)
+      .fromTo('.brand-hero .hero-cta-row > *', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, 0.65)
+      .fromTo('.brand-hero .hero-tags > *', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 }, 0.8)
+      .fromTo('.brand-hero .hero-scroll-indicator', { opacity: 0 }, { opacity: 1, duration: 0.8 }, 1);
   }
 
-  /* Hero side panels slow parallax on scroll */
-  if (!reduced) {
-    const leftPanel = $('.home-hero-side-panel.left');
-    const rightPanel = $('.home-hero-side-panel.right');
+  /* ======================================================================
+     1b. FILM SLIDER SECTION — appears from nowhere, zooms to fit on scroll
+     ===================================================================== */
+  const sliderSection = $('#heroSlider');
+  if (sliderSection && !reduced) {
+    gsap.set(sliderSection, { opacity: 0, scale: 0.72, transformOrigin: '50% 50%', willChange: 'transform, opacity' });
+    gsap.set('#heroSlider .hero-kicker, #heroSlider .hero-title .line-inner, #heroSlider .hero-sub, #heroSlider .hero-cta-row > *, #heroSlider .hero-tags > *', { opacity: 0 });
 
-    if (leftPanel) {
-      gsap.to(leftPanel, {
-        y: 120,
-        ease: 'none',
-        scrollTrigger: { trigger: '.home-hero-section', start: 'top top', end: 'bottom top', scrub: 1 }
-      });
-    }
-    if (rightPanel) {
-      gsap.to(rightPanel, {
-        y: 140,
-        ease: 'none',
-        scrollTrigger: { trigger: '.home-hero-section', start: 'top top', end: 'bottom top', scrub: 1 }
-      });
-    }
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: sliderSection,
+        start: 'top 92%',
+        end: 'top 20%',
+        scrub: 0.6
+      }
+    })
+      .to(sliderSection, { opacity: 1, scale: 1, ease: 'none' }, 0)
+      .to('#heroSlider .hero-kicker, #heroSlider .hero-title .line-inner, #heroSlider .hero-sub, #heroSlider .hero-cta-row > *, #heroSlider .hero-tags > *',
+        { opacity: 1, ease: 'none', stagger: 0.03 }, 0.15);
+  } else if (sliderSection && reduced) {
+    gsap.set(sliderSection, { opacity: 1, scale: 1 });
   }
 
   /* Header scroll state */
@@ -128,6 +126,29 @@ onReady(() => {
     mobileMenu.querySelectorAll('.mobile-menu-link, .mobile-menu-cta').forEach((el) => {
       el.addEventListener('click', closeMenu);
     });
+
+    // "More" nav dropdown
+    const navMore = $('.nav-more');
+    const navMoreToggle = navMore ? navMore.querySelector('.nav-more-toggle') : null;
+    if (navMore && navMoreToggle) {
+      navMoreToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = navMore.classList.toggle('is-open');
+        navMoreToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('click', (e) => {
+        if (!navMore.contains(e.target)) {
+          navMore.classList.remove('is-open');
+          navMoreToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          navMore.classList.remove('is-open');
+          navMoreToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
   }
 
   /* ======================================================================
@@ -451,10 +472,24 @@ onReady(() => {
     if (progressBar) progressBar.style.transition = 'width 0.4s ease-out';
     if (progressBlock) progressBlock.style.transition = 'transform 0.4s ease-out';
 
+    /* Auto-advance — smooth, continuous right-to-left motion, pauses on hover/drag */
+    const AUTO_ADVANCE_MS = 4200;
+    let autoTimer = null;
+    function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+    function startAuto() {
+      if (numOriginalSlides <= 1 || prefersReducedMotion()) return;
+      stopAuto();
+      autoTimer = setInterval(() => animateSlides(1), AUTO_ADVANCE_MS);
+    }
+    slidesContainer.addEventListener('mouseenter', stopAuto);
+    slidesContainer.addEventListener('mouseleave', startAuto);
+    startAuto();
+
     const draggableInstance = Draggable.create(document.createElement('div'), {
       type: 'x',
       trigger: slidesContainer,
       onPress: function () {
+        stopAuto();
         gsap.killTweensOf(slidesInner);
         this.startIndex = state.currentIndex;
         this.startX = this.x;
@@ -480,6 +515,7 @@ onReady(() => {
           onComplete: function () { wrapSlide(); }
         });
         updateProgressBar(false);
+        startAuto();
       }
     })[0];
 
@@ -498,8 +534,8 @@ onReady(() => {
       updateProgressBar(false);
     }
 
-    if (prevButton) prevButton.addEventListener('click', () => animateSlides(-1));
-    if (nextButton) nextButton.addEventListener('click', () => animateSlides(1));
+    if (prevButton) prevButton.addEventListener('click', () => { animateSlides(-1); startAuto(); });
+    if (nextButton) nextButton.addEventListener('click', () => { animateSlides(1); startAuto(); });
 
     function handleResize() {
       const cs = window.getComputedStyle(slidesInner);

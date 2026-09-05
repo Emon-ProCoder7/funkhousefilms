@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <title>Funkhouse Films â€” We Don't Just Make Films. We Build Worlds.</title>
   <meta name="description" content="Funkhouse Films is an independent film and media company creating original films, stories and intellectual property â€” bold, thought-provoking entertainment that stays with you long after the credits roll.">
   <meta property="og:title" content="Funkhouse Films â€” We Build Worlds">
@@ -36,12 +37,19 @@
                   <li class="nav-menu-list"><a href="index.html" class="nav-menu-link active">Home</a></li>
                   <li class="nav-menu-list"><a href="films.html" class="nav-menu-link">Films</a></li>
                   <li class="nav-menu-list"><a href="about.html" class="nav-menu-link">About</a></li>
-                  <li class="nav-menu-list"><a href="director.html" class="nav-menu-link">The Director</a></li>
-                  <li class="nav-menu-list"><a href="services.html" class="nav-menu-link">Services</a></li>
-                  <li class="nav-menu-list"><a href="behind-the-films.html" class="nav-menu-link">Behind The Films</a></li>
-                  <li class="nav-menu-list"><a href="awards.html" class="nav-menu-link">Awards &amp; Press</a></li>
-                  <li class="nav-menu-list"><a href="internship.html" class="nav-menu-link">Internship</a></li>
                   <li class="nav-menu-list"><a href="contact.html" class="nav-menu-link">Contact</a></li>
+                  <li class="nav-menu-list nav-more">
+                    <button type="button" class="nav-menu-link nav-more-toggle" aria-expanded="false" aria-haspopup="true">More
+                      <svg class="nav-more-caret" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-more-panel">
+                      <a href="director.html" class="nav-more-link">The Director</a>
+                      <a href="services.html" class="nav-more-link">Services</a>
+                      <a href="behind-the-films.html" class="nav-more-link">Behind The Films</a>
+                      <a href="awards.html" class="nav-more-link">Awards &amp; Press</a>
+                      <a href="internship.html" class="nav-more-link">Internship</a>
+                    </div>
+                  </li>
                 </ul>
               </nav>
 
@@ -81,69 +89,105 @@
   <main>
 
     <!-- ============================================================
+         SECTION 0 — BRAND HERO (full-bleed single image)
+         ============================================================ -->
+    <section class="brand-hero">
+      <div class="brand-hero-media">
+        <div class="brand-hero-backdrop" style="background-image:url('assets/img/directing.jpg')"></div>
+        <div class="brand-hero-fg" style="background-image:url('assets/img/directing.jpg')"></div>
+        <div class="brand-hero-overlay"></div>
+      </div>
+
+      <div class="brand-hero-content">
+        <div class="hero-kicker">Funkhouse Films — Original Stories</div>
+        <h1 class="hero-title">
+          <span class="line"><span class="line-inner">We Don't Just</span></span>
+          <span class="line"><span class="line-inner">Make Films.</span></span>
+          <span class="line"><span class="line-inner"><em>We Build Worlds.</em></span></span>
+        </h1>
+        <p class="hero-sub">Funkhouse Films creates bold, thought-provoking stories designed to entertain, challenge perspectives, and stay with audiences long after the credits roll.</p>
+        <div class="hero-cta-row">
+          <a href="films.html" class="primary-button"><span class="link-text">Explore Our Films</span></a>
+          <a href="film-coral.html" class="secondary-button"><span class="link-text">Watch Coral</span></a>
+        </div>
+        <div class="hero-tags">
+          <div class="home-hero-tag">Now Streaming</div>
+          <div class="home-hero-tag">Horror / Thriller</div>
+          <div class="home-hero-tag">Coral: The Haunted Assignment</div>
+        </div>
+      </div>
+
+      <div class="hero-scroll-indicator">
+        <div class="mouse"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- ============================================================
          SECTION 1 â€” CINEMATIC HERO (triptych: video middle, 2 panels)
          ============================================================ -->
-    <section class="home-hero-section">
-      <div class="home-hero-wrapper">
+    <section class="hero-slider" id="heroSlider">
 
-        <!-- Video background (centre) -->
-        <div class="hero-middle-block">
-          <div class="hero-video-poster" style="background-image:url('assets/img/coral-sm-15.jpg')"></div>
-          <div class="hero-video-wrap">
-            <iframe class="hero-video-iframe"
-              src="https://www.youtube-nocookie.com/embed/mrG6mndMxSE?autoplay=1&mute=1&loop=1&playlist=mrG6mndMxSE&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1"
-              title="Coral: The Haunted Assignment â€” Official Trailer"
-              allow="autoplay; encrypted-media; picture-in-picture" tabindex="-1"></iframe>
-          </div>
-          <div class="hero-video-overlay"></div>
+      <div class="hero-slider-bg">
+        <div class="hero-slide is-active"><div class="hero-slide-backdrop" style="background-image:url('assets/img/hero-slide-1.jpg')"></div><div class="hero-slide-fg" style="background-image:url('assets/img/hero-slide-1.jpg')"></div></div>
+        <div class="hero-slide"><div class="hero-slide-backdrop" style="background-image:url('assets/img/hero-slide-2.jpg')"></div><div class="hero-slide-fg" style="background-image:url('assets/img/hero-slide-2.jpg')"></div></div>
+        <div class="hero-slide"><div class="hero-slide-backdrop" style="background-image:url('assets/img/hero-slide-3.jpg')"></div><div class="hero-slide-fg" style="background-image:url('assets/img/hero-slide-3.jpg')"></div></div>
+        <div class="hero-slide"><div class="hero-slide-backdrop" style="background-image:url('assets/img/hero-slide-4.jpg')"></div><div class="hero-slide-fg" style="background-image:url('assets/img/hero-slide-4.jpg')"></div></div>
+        <div class="hero-slide"><div class="hero-slide-backdrop" style="background-image:url('assets/img/hero-slide-5.jpg')"></div><div class="hero-slide-fg" style="background-image:url('assets/img/hero-slide-5.jpg')"></div></div>
+        <div class="hero-slide"><div class="hero-slide-backdrop" style="background-image:url('assets/img/hero-slide-6.jpg')"></div><div class="hero-slide-fg" style="background-image:url('assets/img/hero-slide-6.jpg')"></div></div>
+        <div class="hero-slide"><div class="hero-slide-backdrop" style="background-image:url('assets/img/hero-slide-7.jpg')"></div><div class="hero-slide-fg" style="background-image:url('assets/img/hero-slide-7.jpg')"></div></div>
+        <div class="hero-slide"><div class="hero-slide-backdrop" style="background-image:url('assets/img/hero-slide-8.jpg')"></div><div class="hero-slide-fg" style="background-image:url('assets/img/hero-slide-8.jpg')"></div></div>
+        <div class="hero-slide-overlay"></div>
+      </div>
 
-          <canvas class="hero-dust" data-dust aria-hidden="true"></canvas>
+      <div class="hero-slider-content">
+        <div class="hero-kicker">Funkhouse Films — Original Stories</div>
+        <h1 class="hero-title">
+          <span class="line"><span class="line-inner">We Don't Just</span></span>
+          <span class="line"><span class="line-inner">Make Films.</span></span>
+          <span class="line"><span class="line-inner"><em>We Build Worlds.</em></span></span>
+        </h1>
+        <p class="hero-sub">Funkhouse Films creates bold, thought-provoking stories designed to entertain, challenge perspectives, and stay with audiences long after the credits roll.</p>
+        <div class="hero-cta-row">
+          <a href="films.html" class="primary-button"><span class="link-text">Explore Our Films</span></a>
+          <a href="film-coral.html" class="secondary-button"><span class="link-text">Watch Coral</span></a>
+        </div>
+        <div class="hero-tags">
+          <div class="home-hero-tag">Now Streaming</div>
+          <div class="home-hero-tag">Horror / Thriller</div>
+          <div class="home-hero-tag">Coral: The Haunted Assignment</div>
+        </div>
+      </div>
 
-          <!-- Centre content -->
-          <div class="hero-center-content">
-            <div class="hero-kicker">Funkhouse Films â€” Original Stories</div>
-            <h1 class="hero-title">
-              <span class="line"><span class="line-inner">We Don't Just</span></span>
-              <span class="line"><span class="line-inner">Make Films.</span></span>
-              <span class="line"><span class="line-inner"><em>We Build Worlds.</em></span></span>
-            </h1>
-            <p class="hero-sub">Funkhouse Films creates bold, thought-provoking stories designed to entertain, challenge perspectives, and stay with audiences long after the credits roll.</p>
-            <div class="hero-cta-row">
-              <a href="films.html" class="primary-button"><span class="link-text">Explore Our Films</span></a>
-              <a href="film-coral.html" class="secondary-button"><span class="link-text">Watch Coral</span></a>
-            </div>
-            <div class="hero-tags">
-              <div class="home-hero-tag">Original Film</div>
-              <div class="home-hero-tag">Horror / Thriller</div>
-              <div class="home-hero-tag">Intellectual Property</div>
-            </div>
-          </div>
+      <div class="hero-slider-control">
+        <button class="hero-arrow prev" aria-label="Previous slide" type="button">
+          <svg width="8" height="13" viewBox="0 0 8 13" fill="none"><path d="M7 1 1.5 6.5 7 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="hero-thumbs" role="tablist" aria-label="Hero slides">
+          <button class="hero-thumb is-active" data-index="0" style="background-image:url('assets/img/hero-slide-1.jpg')" aria-label="Slide 1"></button>
+          <button class="hero-thumb" data-index="1" style="background-image:url('assets/img/hero-slide-2.jpg')" aria-label="Slide 2"></button>
+          <button class="hero-thumb" data-index="2" style="background-image:url('assets/img/hero-slide-3.jpg')" aria-label="Slide 3"></button>
+          <button class="hero-thumb" data-index="3" style="background-image:url('assets/img/hero-slide-4.jpg')" aria-label="Slide 4"></button>
+          <button class="hero-thumb" data-index="4" style="background-image:url('assets/img/hero-slide-5.jpg')" aria-label="Slide 5"></button>
+          <button class="hero-thumb" data-index="5" style="background-image:url('assets/img/hero-slide-6.jpg')" aria-label="Slide 6"></button>
+          <button class="hero-thumb" data-index="6" style="background-image:url('assets/img/hero-slide-7.jpg')" aria-label="Slide 7"></button>
+          <button class="hero-thumb" data-index="7" style="background-image:url('assets/img/hero-slide-8.jpg')" aria-label="Slide 8"></button>
         </div>
 
-        <!-- Left angled panel -->
-        <div class="home-hero-side-panel left">
-          <img src="assets/img/coral-poster.jpg" alt="Coral: The Haunted Assignment" class="home-hero-side-image">
-          <div class="home-hero-side-overlay">
-            <div class="side-film-badge">Now Streaming</div>
-            <h2 class="home-one-hero-title">Coral:<br>The Haunted Assignment</h2>
-            <div class="home-one-hero-price">Feature Film · 2026</div>
-          </div>
-        </div>
+        <button class="hero-arrow next" aria-label="Next slide" type="button">
+          <svg width="8" height="13" viewBox="0 0 8 13" fill="none"><path d="M1 1 6.5 6.5 1 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
 
-        <!-- Right angled panel -->
-        <div class="home-hero-side-panel right">
-          <img src="assets/img/coral-ayla-3.jpg" alt="Lurking Creatures 2" class="home-hero-side-image">
-          <div class="home-hero-side-overlay right">
-            <div class="side-film-badge">Coming Soon</div>
-            <h2 class="home-one-hero-title">Lurking<br>Creatures 2</h2>
-            <div class="home-one-hero-price">Short Film · Post Production</div>
-          </div>
+        <div class="hero-slider-meta">
+          <div class="hero-slider-line"><div class="hero-slider-line-fill"></div></div>
+          <div class="hero-slider-index"><span class="current">01</span> / <span class="total">08</span></div>
         </div>
+      </div>
 
-        <div class="hero-scroll-indicator">
-          <div class="mouse"></div>
-          <span>Scroll</span>
-        </div>
+      <div class="hero-scroll-indicator">
+        <div class="mouse"></div>
+        <span>Scroll</span>
       </div>
     </section>
 
@@ -198,7 +242,7 @@
                     <div class="game-thumbnail-wrapper">
                       <span class="game-thumbnail-badge gold">Now Streaming</span>
                       <div class="game-thumbnail-inner">
-                        <img src="assets/img/coral-poster.jpg" loading="lazy" alt="Coral: The Haunted Assignment" class="game-thumbnail">
+                        <img src="assets/img/hero-slide-2.jpg" loading="lazy" alt="Coral: The Haunted Assignment" class="game-thumbnail">
                       </div>
                     </div>
                     <div class="game-card-content-block">
@@ -224,7 +268,7 @@
                     <div class="game-thumbnail-wrapper">
                       <span class="game-thumbnail-badge">Coming Soon</span>
                       <div class="game-thumbnail-inner">
-                        <img src="https://i.ytimg.com/vi/rPp-9Gvm-30/maxresdefault.jpg" loading="lazy" alt="Lurking Creatures 2" class="game-thumbnail">
+                        <img src="assets/img/djn-empty-theater.jpg" loading="lazy" alt="Lurking Creatures 2" class="game-thumbnail">
                       </div>
                     </div>
                     <div class="game-card-content-block">
@@ -381,7 +425,7 @@
             <div class="film-row" data-reveal>
               <a href="#" class="film-row-cover" data-youtube="rPp-9Gvm-30">
                 <span class="film-row-status coming">Coming Soon</span>
-                <img src="https://i.ytimg.com/vi/rPp-9Gvm-30/maxresdefault.jpg" loading="lazy" alt="Lurking Creatures 2">
+                <img src="assets/img/djn-empty-theater.jpg" loading="lazy" alt="Lurking Creatures 2">
               </a>
               <div class="film-row-body">
                 <h3 class="film-row-title">Lurking Creatures 2</h3>
@@ -1221,10 +1265,10 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js"></script>
   <script src="js/custom-animations.js"></script>
+  <script src="js/hero-slider.js"></script>
 <!-- Film grain + smooth scroll + scroll experience -->
   <div class="grain-overlay" aria-hidden="true"></div>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script src="js/scroll-experience.js"></script>
-  <script src="js/webgl-dust.js"></script>
 </body>
 </html>
