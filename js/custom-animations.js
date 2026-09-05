@@ -731,19 +731,12 @@ onReady(() => {
 
   /* ======================================================================
      9. REVEAL BLOCKS (viewport entrances)
+     [data-reveal] itself is owned by scroll-experience.js (section 2) —
+     handling it here too created a duplicate gsap.from() on the same
+     elements, which caused stuck/invisible ("black panel") sections.
+     Only .reveal-blur is handled here.
      ===================================================================== */
   if (!reduced) {
-    $$('[data-reveal]').forEach((el) => {
-      const delay = parseFloat(el.getAttribute('data-delay') || '0') || 0;
-      gsap.fromTo(el,
-        { opacity: 0, y: 34 },
-        {
-          opacity: 1, y: 0, delay,
-          duration: 0.9, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-        });
-    });
-
     $$('.reveal-blur').forEach((el) => {
       gsap.fromTo(el,
         { opacity: 0, filter: 'blur(14px)' },

@@ -2934,9 +2934,13 @@ body.menu-open {
 /* --------------------------------------------------------------------------
    25. ANIMATION HELPERS (initial states set by GSAP)
    -------------------------------------------------------------------------- */
+/* NOTE: [data-reveal] elements are intentionally NOT pre-hidden here.
+   gsap.from() (in scroll-experience.js) treats the element's current
+   CSS state as the tween's implicit end target — pre-setting
+   opacity:0/translateY here made every reveal animate back to hidden.
+   GSAP applies its own immediate "from" render, so no CSS default is
+   needed, and content stays visible if JS fails to load. */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(34px);
   will-change: transform, opacity;
 }
 

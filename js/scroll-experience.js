@@ -72,7 +72,7 @@
        ------------------------------------------------------------------ */
     if (!reduced) {
       $$('[data-stagger]').forEach(function (group) {
-        var children = $$('> *', group);
+        var children = $$(':scope > *', group);
         if (!children.length) return;
         gsap.from(children, {
           y: 44, autoAlpha: 0, duration: 0.85, ease: 'power3.out', stagger: 0.1,
