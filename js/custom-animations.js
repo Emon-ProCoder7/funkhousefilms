@@ -66,7 +66,8 @@ onReady(() => {
   const sliderSection = $('#heroSlider');
   if (sliderSection && !reduced) {
     gsap.set(sliderSection, { opacity: 0, scale: 0.72, transformOrigin: '50% 50%', willChange: 'transform, opacity' });
-    gsap.set('#heroSlider .hero-kicker, #heroSlider .hero-title .line-inner, #heroSlider .hero-sub, #heroSlider .hero-cta-row > *, #heroSlider .hero-tags > *', { opacity: 0 });
+    gsap.set('#heroSlider .hero-kicker', { opacity: 0 });
+    gsap.set('#heroSlider .hero-title .line-inner', { opacity: 0, y: 0, yPercent: 0 });
 
     gsap.timeline({
       scrollTrigger: {
@@ -77,7 +78,7 @@ onReady(() => {
       }
     })
       .to(sliderSection, { opacity: 1, scale: 1, ease: 'none' }, 0)
-      .to('#heroSlider .hero-kicker, #heroSlider .hero-title .line-inner, #heroSlider .hero-sub, #heroSlider .hero-cta-row > *, #heroSlider .hero-tags > *',
+      .to('#heroSlider .hero-kicker, #heroSlider .hero-title .line-inner',
         { opacity: 1, ease: 'none', stagger: 0.03 }, 0.15);
   } else if (sliderSection && reduced) {
     gsap.set(sliderSection, { opacity: 1, scale: 1 });
