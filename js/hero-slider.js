@@ -2,7 +2,7 @@
    FUNKHOUSE FILMS — Hero Slider
    Auto-advancing full-bleed background carousel with thumbnail controls,
    progress bar and arrow navigation. GSAP cross-fade + scale transition.
-   Pauses on hover, resumes on mouse leave. Respects prefers-reduced-motion.
+   Runs continuously regardless of hover. Respects prefers-reduced-motion.
    ========================================================================== */
 (function () {
   function onReady(fn) {
@@ -75,8 +75,7 @@
     if (nextBtn) nextBtn.addEventListener('click', next);
     if (prevBtn) prevBtn.addEventListener('click', prev);
 
-    root.addEventListener('mouseenter', function () { if (fillTween) fillTween.pause(); });
-    root.addEventListener('mouseleave', function () { if (fillTween) fillTween.resume(); });
+    // Runs continuously — never pauses on hover, so it always keeps advancing.
 
     // Init state
     if (window.gsap) {

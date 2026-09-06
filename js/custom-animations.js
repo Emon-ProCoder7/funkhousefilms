@@ -53,7 +53,6 @@ onReady(() => {
     tl.fromTo('.brand-hero .hero-title .line-inner',
       { yPercent: 115 },
       { yPercent: 0, duration: 1.1, stagger: 0.14 }, 0.15)
-      .fromTo('.brand-hero .hero-kicker', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 0.35)
       .fromTo('.brand-hero .hero-sub', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.8 }, 0.5)
       .fromTo('.brand-hero .hero-cta-row > *', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, 0.65)
       .fromTo('.brand-hero .hero-tags > *', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 }, 0.8);
@@ -470,24 +469,36 @@ onReady(() => {
     if (progressBar) progressBar.style.transition = 'width 0.4s ease-out';
     if (progressBlock) progressBlock.style.transition = 'transform 0.4s ease-out';
 
-    /* Auto-advance — smooth, continuous right-to-left motion, pauses on hover/drag */
+    /* Auto-advance — continuous right-to-left motion, never pauses on hover.
+       Moves at a constant pace (one slide-width every AUTO_ADVANCE_MS) via
+       gsap.ticker rather than discrete timed jumps, so it always looks like
+       it's moving whenever you look at it. Only pauses while actively dragging
+       or mid-way through a button-triggered snap. */
     const AUTO_ADVANCE_MS = 4200;
-    let autoTimer = null;
-    function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
-    function startAuto() {
-      if (numOriginalSlides <= 1 || prefersReducedMotion()) return;
-      stopAuto();
-      autoTimer = setInterval(() => animateSlides(1), AUTO_ADVANCE_MS);
+    let autoPaused = false;
+    let lastAutoTime = null;
+
+    function autoTick() {
+      if (autoPaused || state.isWrapping || numOriginalSlides <= 1 || prefersReducedMotion()) {
+        lastAutoTime = null;
+        return;
+      }
+      const now = performance.now();
+      if (lastAutoTime === null) { lastAutoTime = now; return; }
+      const deltaSec = (now - lastAutoTime) / 1000;
+      lastAutoTime = now;
+      state.currentIndex += deltaSec / (AUTO_ADVANCE_MS / 1000);
+      gsap.set(slidesInner, { x: calculatePosition(state.currentIndex) });
+      updateProgressBar(true);
+      wrapSlide();
     }
-    slidesContainer.addEventListener('mouseenter', stopAuto);
-    slidesContainer.addEventListener('mouseleave', startAuto);
-    startAuto();
+    gsap.ticker.add(autoTick);
 
     const draggableInstance = Draggable.create(document.createElement('div'), {
       type: 'x',
       trigger: slidesContainer,
       onPress: function () {
-        stopAuto();
+        autoPaused = true;
         gsap.killTweensOf(slidesInner);
         this.startIndex = state.currentIndex;
         this.startX = this.x;
@@ -510,15 +521,15 @@ onReady(() => {
           duration: config.slideDuration,
           ease: 'power2.out',
           overwrite: true,
-          onComplete: function () { wrapSlide(); }
+          onComplete: function () { wrapSlide(); autoPaused = false; }
         });
         updateProgressBar(false);
-        startAuto();
       }
     })[0];
 
     function animateSlides(direction) {
       if (state.isWrapping || numOriginalSlides <= 1) return;
+      autoPaused = true;
       const newIndex = state.currentIndex + direction;
       state.currentIndex = newIndex;
       if (state.slideAnimation) state.slideAnimation.kill();
@@ -527,13 +538,13 @@ onReady(() => {
         duration: config.slideDuration,
         ease: 'power2.out',
         overwrite: true,
-        onComplete: function () { wrapSlide(); }
+        onComplete: function () { wrapSlide(); autoPaused = false; }
       });
       updateProgressBar(false);
     }
 
-    if (prevButton) prevButton.addEventListener('click', () => { animateSlides(-1); startAuto(); });
-    if (nextButton) nextButton.addEventListener('click', () => { animateSlides(1); startAuto(); });
+    if (prevButton) prevButton.addEventListener('click', () => animateSlides(-1));
+    if (nextButton) nextButton.addEventListener('click', () => animateSlides(1));
 
     function handleResize() {
       const cs = window.getComputedStyle(slidesInner);
