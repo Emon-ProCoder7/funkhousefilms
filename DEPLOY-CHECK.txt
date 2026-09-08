@@ -1,3 +1,0 @@
-DEPLOY CHECK MARKER
-Generated (UTC): 2026-09-08 19:17:41
-If you can see this text on github.com right now, the repo IS up to date and this is a browser-cache issue on your end, not a repo problem.
