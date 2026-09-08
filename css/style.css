@@ -3530,6 +3530,74 @@ html.lenis, html.lenis body { height: auto; }
 .img-marquee img { width: 320px; height: 210px; object-fit: cover; border-radius: var(--radius); flex: none; }
 .img-marquee-frame { overflow: clip; }
 
+/* "From the Set" — pinned scroll-driven floating gallery */
+.from-the-set-section { position: relative; }
+.fts-track { position: relative; height: 400vh; }
+.fts-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--clr-surface);
+}
+
+.fts-watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(52px, 11vw, 180px);
+  letter-spacing: -1px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.fts-card {
+  position: absolute;
+  top: 0;
+  width: min(320px, 27vw);
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius);
+  overflow: hidden;
+  z-index: 2;
+  display: block;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+  transition: transform 0.4s var(--ease-out, ease), box-shadow 0.4s var(--ease-out, ease);
+  will-change: transform;
+}
+
+.fts-card:hover { transform: scale(1.03); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.7); }
+
+.fts-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.fts-card-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 18px 16px 14px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fts-card:hover .fts-card-caption { opacity: 1; transform: translateY(0); }
+
+@media screen and (max-width: 767px) {
+  .fts-track { height: 320vh; }
+  .fts-card { width: min(220px, 46vw); }
+}
+
 /* "From the Set" organic grid */
 .set-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-flow: dense; gap: 18px; }
 .set-grid .parallax-frame { grid-column: span 4; height: 300px; }

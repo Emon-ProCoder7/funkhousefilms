@@ -833,6 +833,48 @@ onReady(() => {
   });
 
   /* ======================================================================
+     10b. FROM THE SET — pinned scroll-driven floating gallery
+     A static "From the Set" watermark stays put while cards float up from
+     below the fold, cross the pinned viewport, and exit past the top —
+     staggered so only 1-2 are ever visible at once. scrub ties the motion
+     directly to scroll position/speed in both directions.
+     ===================================================================== */
+  const ftsTrack = $('.from-the-set-section .fts-track');
+  const ftsCards = $$('.from-the-set-section .fts-card');
+  if (ftsTrack && ftsCards.length) {
+    if (!reduced) {
+      const cardDuration = 0.32;
+      const spacing = ftsCards.length > 1 ? (1 - cardDuration) / (ftsCards.length - 1) : 0;
+
+      const ftsTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ftsTrack,
+          pin: '.from-the-set-section .fts-pin',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.5,
+          invalidateOnRefresh: true
+        }
+      });
+
+      ftsCards.forEach((card, i) => {
+        ftsTl.fromTo(card,
+          { y: '120vh' },
+          { y: '-120vh', ease: 'none', duration: cardDuration },
+          i * spacing);
+      });
+    } else {
+      const ftsPin = $('.from-the-set-section .fts-pin');
+      ftsTrack.style.height = 'auto';
+      if (ftsPin) Object.assign(ftsPin.style, {
+        position: 'relative', height: 'auto', display: 'flex',
+        flexWrap: 'wrap', gap: '16px', padding: '48px 24px', justifyContent: 'center'
+      });
+      gsap.set(ftsCards, { y: 0, position: 'relative', top: 'auto', left: 'auto' });
+    }
+  }
+
+  /* ======================================================================
      11. LIGHTBOX (YouTube playback)
      ===================================================================== */
   const lightbox = $('.lightbox');
